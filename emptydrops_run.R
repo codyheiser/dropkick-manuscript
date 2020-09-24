@@ -50,7 +50,7 @@ loadRaster <- function(fpath, log=FALSE) {
 }
 
 parser <- ArgumentParser(description="Run EmptyDrops analysis on scRNA-seq counts")
-parser$add_argument("counts", type="string", nargs='+', help="Counts file as .csv with no headers")
+parser$add_argument("counts", type="character", nargs='+', help="Counts file as .csv with no headers")
 parser$add_argument("expected", type="integer", nargs='+', help="Expected number of cells in the counts file")
 parser$add_argument("lower", type="integer", nargs='+', help="Lower limit of counts to consider initial empty droplets")
 args <- parser$parse_args()
@@ -61,8 +61,11 @@ expected <- args$expected
 lower <- args$lower
 
 for (i in seq_along(ALLFILES)) {
-    fname <- ALLFILES[i]
-    fpath <- file.path("..", "data", fname)
+    fpath <- ALLFILES[i]
+    message(fpath)
+    fname <- tail(strsplit(as.character(fpath), "/"), n=1)[-1]
+    message(fname)
+    
     if (!file.exists(fpath)) {
         message("missing data files for '", fname, "'")
         next
