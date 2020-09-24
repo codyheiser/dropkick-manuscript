@@ -51,23 +51,19 @@ loadRaster <- function(fpath, log=FALSE) {
 
 parser <- ArgumentParser(description="Run EmptyDrops analysis on scRNA-seq counts")
 parser$add_argument("counts", type="character", nargs='+', help="Counts file as .csv with no headers")
-parser$add_argument("expected", type="integer", nargs='+', help="Expected number of cells in the counts file")
 parser$add_argument("lower", type="integer", nargs='+', help="Lower limit of counts to consider initial empty droplets")
 args <- parser$parse_args()
 
 # Specifying all the input files.
 ALLFILES <- args$counts
-expected <- args$expected
 lower <- args$lower
 
 for (i in seq_along(ALLFILES)) {
     fpath <- ALLFILES[i]
-    message(fpath)
-    fname <- tail(strsplit(as.character(fpath), "/"), n=1)[-1]
-    message(fname)
+    fname <- tail(strsplit(as.character(fpath), "/")[[1]], n=1)
     
     if (!file.exists(fpath)) {
-        message("missing data files for '", fname, "'")
+        message("Missing data files for '", fname, "'")
         next
     }
     
@@ -75,7 +71,7 @@ for (i in seq_along(ALLFILES)) {
     tic(paste0("EmptyDrops analysis on '",fname,"'"))
     
     # read in csv file(s)
-    if (tail(strsplit(fname, "\\.")[[1]], 1) == "csv"){
+    if (tail(strsplit(as.character(fname), "\\.")[[1]], 1) == "csv"){
         message(paste0("Reading in data for '",fname,"'"))
         x <- read.csv(fpath, header=F)
         x2 <- as(as.matrix(x), "sparseMatrix")
@@ -90,7 +86,6 @@ for (i in seq_along(ALLFILES)) {
     }
     
     message(paste0("Calculating global counts metrics for '",outname,"'"))
-    #stub <- sub("/.*", "", fname)
     final <- counts(sce)
     stats <- barcodeRanks(final, lower=lower[i])
     
@@ -104,23 +99,17 @@ for (i in seq_along(ALLFILES)) {
            legend=c("Fitted spline", "Knee", "Inflection"), lwd=2, cex=1.2)
     dev.off()
     
-    # Testing emptyDrops.
+    # EmptyDrops
     message(paste0("Running EmptyDrops for '",outname,"'"))
     e.out <- emptyDrops(final, lower = metadata(stats)$inflection, test.ambient=T)
-    write.csv(e.out, file=paste0("emptydrops_",outname,".csv"))
+    write.csv(e.out, file=file.path(ppath, paste0("emptydrops_",outname,".csv")))
     e.keep <- e.out$FDR <= 0.001
     e.keep[is.na(e.keep)] <- FALSE
-    #write.csv(e.keep, file=paste0("emptydrops_",outname,".csv"))
     
     # Keeping everything above the knee point.
     message(paste0("Calculating knee-point cutoff for '",outname,"'"))
     k.keep <- stats$total >= stats$knee
-    write.csv(k.keep, file=paste0("knee_",outname,".csv"))
-    
-    # Using the CellRanger approach.
-    message(paste0("Running CellRanger v2.1 for '",outname,"'"))
-    c.keep <- defaultDrops(final, expected=expected[i], lower.prop=0.2)
-    write.csv(c.keep, file=paste0("cellranger_",outname,".csv"))
+    write.csv(k.keep, file=file.path(ppath, paste0("knee_",outname,".csv")))
     
     ############################
     # Examining the distribution of deviances.
