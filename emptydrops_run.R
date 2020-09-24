@@ -106,11 +106,6 @@ for (i in seq_along(ALLFILES)) {
     e.keep <- e.out$FDR <= 0.001
     e.keep[is.na(e.keep)] <- FALSE
     
-    # Keeping everything above the knee point.
-    message(paste0("Calculating knee-point cutoff for '",outname,"'"))
-    k.keep <- stats$total >= stats$knee
-    write.csv(k.keep, file=file.path(ppath, paste0("knee_",outname,".csv")))
-    
     ############################
     # Examining the distribution of deviances.
     X <- e.out$Total/1000
