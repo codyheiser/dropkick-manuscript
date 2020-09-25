@@ -14,4 +14,4 @@ Scripts and notebooks for reproducing analysis from the 2020 dropkick manuscript
 
 ---
 
-**NOTE:** This entire process may take several minutes to complete on a well-equipped machine. The [`emptydrops_cellranger.sh`](emptydrops_cellranger.sh) script typically completes in ~5 min per input file (`.h5ad`). [cNMF](https://github.com/codyheiser/cnmf) analysis ([Kotliar, et al. 2019](https://elifesciences.org/articles/43803)) within the [`run_and_test.sh`](run_and_test.sh) script will also take several minutes for metagene decomposition of each file to generate embeddings that visualize `dropkick` vs. `EmptyDrops` and `CellRanger` filtering.
+**NOTE:** This entire process may take several minutes to complete on a well-equipped machine. The [`emptydrops_cellranger.sh`](emptydrops_cellranger.sh) script typically completes in ~5 min per input file (`.h5ad`). The [`run_and_test.sh`](run_and_test.sh) script may also take a couple minutes for dimension reduction, clustering, and embedding to visualize `dropkick` vs. `EmptyDrops` and `CellRanger` filtering.
