@@ -5,10 +5,12 @@ do
 	file=`basename $f` # get name of .h5ad file
 
 	printf "\nStarting dropkick qc on $file:\n"
-	time dropkick qc $f
+	time dropkick qc $f  # generate dropkick QC report
 
 	printf "\nRunning dropkick filtering on $file:\n"
-	time dropkick run $f -j 5
+	time dropkick run $f -j 5  # run dropkick filtering with 5 jobs
+	NAME=`basename $f`
+	kitchen label_info ${NAME%.h5ad}_dropkick.h5ad -l dropkick_label  # show number of cells identified by dropkick
 
 done
 
