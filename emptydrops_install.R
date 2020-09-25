@@ -2,6 +2,7 @@
 install.packages("argparse")
 install.packages("Matrix")
 install.packages("tictoc")
+install.packages("png")
 # DropletUtils package (containing EmptyDrops function)
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
