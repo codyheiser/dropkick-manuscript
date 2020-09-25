@@ -11,3 +11,7 @@ Scripts and notebooks for reproducing analysis from the 2020 dropkick manuscript
 3. [`run_and_test.sh`](run_and_test.sh) will perform `dropkick` filtering on all `.h5ad` files in [`data/`](data/) and then compare outputs to `CellRanger_2` and `EmptyDrops` labels.
 
 4. [`manualfilter_example.ipynb`](manualfilter_example.ipynb) outlines our manual filtering approach performed on inDrop sequencing samples for comparison to `dropkick`.
+
+---
+
+**NOTE:** This entire process may take several minutes to complete on a well-equipped machine. The [`emptydrops_cellranger.sh`](emptydrops_cellranger.sh) script typically completes in ~5 min per input file (`.h5ad`). [cNMF](https://github.com/codyheiser/cnmf) analysis ([Kotliar, et al. 2019](https://elifesciences.org/articles/43803)) within the [`run_and_test.sh`](run_and_test.sh) script will also take several minutes for metagene decomposition of each file to generate embeddings that visualize `dropkick` vs. `EmptyDrops` and `CellRanger` filtering.
