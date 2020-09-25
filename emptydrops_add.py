@@ -21,6 +21,7 @@ if __name__ == "__main__":
 
     # add emptydrops results to anndata object in .obs
     a.obs[["EmptyDrops_LogProb","EmptyDrops_pval","EmptyDrops_limited","EmptyDrops_FDR"]] = e[["LogProb","PValue","Limited","FDR"]].values
+    a.obs.EmptyDrops_FDR.fillna(value=1.0, inplace=True)  # make FDR 1.0 for untested barcodes so the final label ignores them
     a.obs["EmptyDrops"] = "False"
     a.obs.loc[a.obs.EmptyDrops_FDR <= 0.001, "EmptyDrops"] = "True"
 

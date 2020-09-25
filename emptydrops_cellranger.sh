@@ -14,17 +14,18 @@ do
 	rm tmp.h5ad
 
 	# read in above csv file and perform EmptyDrops filtering
-	printf("\nPerforming EmptyDrops analysis on $f in R:\n")
+	printf "\nPerforming EmptyDrops analysis on $f in R:\n"
 	Rscript emptydrops_run.R ${f%.h5ad}.csv 1000
 
 	# add EmptyDrops labels to original .h5ad file
 	printf "\nAdding EmptyDrops labels to $f:\n"
 	NAME=`basename $f`
-	python emptydrops_to_h5ad.py $f emptydrops_out/emptydrops_${NAME%.h5ad}.csv
+	python emptydrops_add.py $f emptydrops_out/emptydrops_${NAME%.h5ad}.csv
+	kitchen label_info $f -l EmptyDrops
 
 	# add CellRanger v2 labels to original .h5ad file
 	printf "\nAdding CellRanger_2 labels to $f:\n"
-	kitchen cellranger2 $f --expected 2000
+	kitchen cellranger2 $f --expected 2000 -l 0.22
 done
 
 printf "\nDone!"

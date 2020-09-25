@@ -25,3 +25,4 @@ done
 
 # aggregate stats comparing dropkick to EmptyDrops and CellRanger
 python dropkick_agg_stats.py `ls | grep .h5ad` -l CellRanger_2 EmptyDrops
+
