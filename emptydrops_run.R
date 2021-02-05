@@ -1,6 +1,7 @@
 suppressPackageStartupMessages(library(argparse))
 suppressPackageStartupMessages(library(DropletUtils))
 suppressPackageStartupMessages(library(Matrix))
+suppressPackageStartupMessages(library(BiocParallel))
 suppressPackageStartupMessages(library(tictoc))
 
 # define functions
@@ -98,7 +99,7 @@ dev.off()
 
 # EmptyDrops
 message(paste0("Running EmptyDrops for '",outname,"'"))
-e.out <- emptyDrops(final, lower = metadata(stats)$inflection)
+e.out <- emptyDrops(final, lower = metadata(stats)$inflection, BPPARAM=MulticoreParam(workers=5))
 write.csv(e.out, file=file.path(ppath, paste0("emptydrops_",outname,".csv")))
 e.keep <- e.out$FDR <= 0.001
 e.keep[is.na(e.keep)] <- FALSE

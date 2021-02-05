@@ -25,7 +25,7 @@ do
 
 	# add CellRanger v2 labels to original .h5ad file
 	printf "\nAdding CellRanger_2 labels to $f:\n"
-	kitchen cellranger2 $f --expected 2000 -l 0.22
+	kitchen cellranger2 $f --expected 2000 -lp 0.22
 done
 
 printf "\nDone!"
