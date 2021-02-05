@@ -1,6 +1,6 @@
 ![Alt text](data/dropkick_logo.png)
 
-Scripts and notebooks for reproducing analysis from the 2020 dropkick manuscript.
+Scripts and notebooks for reproducing analysis from the [2020 dropkick manuscript](https://doi.org/10.1101/2020.10.08.332288).
 
 ---
 
