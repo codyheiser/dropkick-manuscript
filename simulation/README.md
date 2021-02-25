@@ -7,6 +7,6 @@ To do so, we sample ambient genes from a multinomial distribution up to 5k total
 
 The following command will run this simulation and save the result to `../data/pbmc_4k_sim.h5ad`.
 
-```
-python simulate_empty.py ../data/pbmc_4k.h5ad --n-bottom-counts 100 --n-ambient 1000 --n-empties 2000 --max-counts-empty 5000 -o ../data
+```sh
+python simulate_empty.py ../data/pbmc/pbmc_4k.h5ad --n-bottom-counts 100 --n-ambient 1000 --n-empties 2000 --max-counts-empty 5000 -o ../data
 ```

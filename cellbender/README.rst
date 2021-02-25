@@ -40,21 +40,21 @@ First, download 10x Genomics human placenta datasets:
 
 .. code-block:: console
 
-   (CellBender) $ bash ../data/download_placenta.sh
+   (CellBender) $ cd ../data/; bash download_placenta.sh
 
 Then, you can run CellBender on all six replicates with the following command:
 
 .. code-block:: console
 
-   (CellBender) $ bash cellbender_run.sh
+   (CellBender) $ cd ../cellbender; bash cellbender_run.sh
 
 **NOTE:** Each CellBender command takes a while to run. Plan on these analyses taking up to 12 hours for all 6 replicates.
 
 Converting CellBender outputs to AnnData for downstream analysis
 --------------
 
-Finally, you'll need to put the ``.h5`` outputs into ``.h5ad`` format for ease of ``dropkick`` filtering:
+Finally, you'll need to put the ``.h5`` outputs into ``.h5ad`` format in the ``data/`` directory for ease of ``dropkick`` filtering:
 
 .. code-block:: console
 
-   (CellBender) $ python h5_to_h5ad.py
+   (CellBender) $ python h5_to_h5ad.py; mv *.h5ad ../data/
