@@ -25,3 +25,9 @@ Scripts and notebooks for reproducing analysis from the [2020 dropkick manuscrip
 ---
 
 **NOTE:** This entire process may take several minutes to complete on a well-equipped machine. The [`emptydrops_cellranger.sh`](emptydrops_cellranger.sh) script typically completes in ~5 min per input file (`.h5ad`). The [`run_and_test.sh`](run_and_test.sh) script may also take a couple minutes for dimension reduction, clustering, and embedding to visualize `dropkick` vs. `EmptyDrops` and `CellRanger` filtering.
+
+---
+
+## `dropkick` Documentation
+
+Full documentation is available at [KenLauLab.github.io/dropkick](https://kenlaulab.github.io/dropkick/).
